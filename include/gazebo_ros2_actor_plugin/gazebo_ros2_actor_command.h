@@ -38,11 +38,11 @@ class GazeboRosActorCommand : public ModelPlugin {
  private:
   /// \brief Callback function for receiving velocity commands from a publisher.
   /// \param[in] _model Pointer to the incoming velocity message.
-  void VelCallback(const geometry_msgs::msg::Twist::SharedPtr &msg);
+  void VelCallback(const geometry_msgs::msg::Twist::SharedPtr msg);
 
   /// \brief Callback function for receiving path commands from a publisher.
   /// \param[in] _model Pointer to the incoming path message.
-  void PathCallback(const nav_msgs::msg::Path::SharedPtr &msg);
+  void PathCallback(const nav_msgs::msg::Path::SharedPtr msg);
 
   /// \brief Function that is called every update cycle.
   /// \param[in] _info Timing information.

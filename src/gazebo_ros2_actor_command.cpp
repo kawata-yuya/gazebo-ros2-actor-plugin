@@ -147,14 +147,14 @@ void GazeboRosActorCommand::Reset() {
   }
 }
 
-void GazeboRosActorCommand::VelCallback(const geometry_msgs::msg::Twist::SharedPtr &msg) {
+void GazeboRosActorCommand::VelCallback(const geometry_msgs::msg::Twist::SharedPtr msg) {
   ignition::math::Vector3d vel_cmd;
   vel_cmd.X() = msg->linear.x;
   vel_cmd.Z() = msg->angular.z;
   this->cmd_queue_.push(vel_cmd);
 }
 
-void GazeboRosActorCommand::PathCallback(const nav_msgs::msg::Path::SharedPtr &msg) {
+void GazeboRosActorCommand::PathCallback(const nav_msgs::msg::Path::SharedPtr msg) {
   // Extract the poses from the Path message
   const std::vector<geometry_msgs::msg::PoseStamped>& poses = msg->poses;
 
