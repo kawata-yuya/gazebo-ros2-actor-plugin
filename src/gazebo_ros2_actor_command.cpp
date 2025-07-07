@@ -1,4 +1,4 @@
-#include <gazebo_ros_actor_plugin/gazebo_ros_actor_command.h>
+#include <gazebo_ros2_actor_plugin/gazebo_ros2_actor_command.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 
