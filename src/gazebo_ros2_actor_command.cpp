@@ -74,12 +74,12 @@ void GazeboRosActorCommand::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   
 
   // Check if ROS node for Gazebo has been initialized
-  if (!ros::isInitialized()) {
-    ROS_FATAL_STREAM_NAMED("actor", "A ROS node for Gazebo has not been "
-    << "initialized, unable to load plugin. Load the Gazebo system plugin "
-    << "'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
-    return;
-  }
+  // if (!ros::isInitialized()) {
+  //   ROS_FATAL_STREAM_NAMED("actor", "A ROS node for Gazebo has not been "
+  //   << "initialized, unable to load plugin. Load the Gazebo system plugin "
+  //   << "'libgazebo_ros_api_plugin.so' in the gazebo_ros package)");
+  //   return;
+  // }
 
   // Set variables
   this->sdf_ = _sdf;
