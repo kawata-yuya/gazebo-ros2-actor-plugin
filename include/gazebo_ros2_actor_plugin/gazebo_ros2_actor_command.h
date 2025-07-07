@@ -3,8 +3,8 @@
 
 #include <ros/ros.h>
 #include <ros/callback_queue.h>
-#include <geometry_msgs/Twist.h>
-#include <nav_msgs/Path.h>
+#include <geometry_msgs/msg/twist.hpp>
+#include <nav_msgs/msg/path.hpp>
 
 #include <string>
 #include <queue>
@@ -38,11 +38,11 @@ class GazeboRosActorCommand : public ModelPlugin {
  private:
   /// \brief Callback function for receiving velocity commands from a publisher.
   /// \param[in] _model Pointer to the incoming velocity message.
-  void VelCallback(const geometry_msgs::Twist::ConstPtr &msg);
+  void VelCallback(const geometry_msgs::msg::Twist::SharedPtr &msg);
 
   /// \brief Callback function for receiving path commands from a publisher.
   /// \param[in] _model Pointer to the incoming path message.
-  void PathCallback(const nav_msgs::Path::ConstPtr &msg);
+  void PathCallback(const nav_msgs::msg::Path::SharedPtr &msg);
 
   /// \brief Function that is called every update cycle.
   /// \param[in] _info Timing information.

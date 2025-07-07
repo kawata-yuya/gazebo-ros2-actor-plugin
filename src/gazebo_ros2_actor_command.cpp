@@ -147,20 +147,20 @@ void GazeboRosActorCommand::Reset() {
   }
 }
 
-void GazeboRosActorCommand::VelCallback(const geometry_msgs::Twist::ConstPtr &msg) {
+void GazeboRosActorCommand::VelCallback(const geometry_msgs::msg::Twist::SharedPtr &msg) {
   ignition::math::Vector3d vel_cmd;
   vel_cmd.X() = msg->linear.x;
   vel_cmd.Z() = msg->angular.z;
   this->cmd_queue_.push(vel_cmd);
 }
 
-void GazeboRosActorCommand::PathCallback(const nav_msgs::Path::ConstPtr &msg) {
+void GazeboRosActorCommand::PathCallback(const nav_msgs::msg::Path::SharedPtr &msg) {
   // Extract the poses from the Path message
-  const std::vector<geometry_msgs::PoseStamped>& poses = msg->poses;
+  const std::vector<geometry_msgs::msg::PoseStamped>& poses = msg->poses;
 
   // Extract the x, y, and yaw from each pose and store it as a target
   for (size_t i = 0; i < poses.size(); ++i) {
-    const geometry_msgs::Pose& pose = poses[i].pose;
+    const geometry_msgs::msg::Pose& pose = poses[i].pose;
     const double x = pose.position.x;
     const double y = pose.position.y;
 
