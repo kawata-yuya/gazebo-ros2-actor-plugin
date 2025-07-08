@@ -50,26 +50,12 @@ class GazeboRosActorCommand : public ModelPlugin {
   /// \param[in] _info Timing information.
   void OnUpdate(const common::UpdateInfo &_info);
 
-  /// \brief Custom callback queue thread for velocity commands.
-  void VelQueueThread();
-
-  /// \brief Custom callback queue thread for path commands.
-  void PathQueueThread();
-
   /// \brief ROS node handle.
   rclcpp::Node::SharedPtr ros_node_;
 
   /// \brief Subscribers for velocity and path commands.
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr vel_sub_;
   rclcpp::Subscription<nav_msgs::msg::Path>::SharedPtr path_sub_;
-
-  /// \brief Custom callback queues for velocity and path commands.
-  ros::CallbackQueue vel_queue_;
-  ros::CallbackQueue path_queue_;
-
-  /// \brief Custom callback queue threads for velocity and path commands.
-  boost::thread velCallbackQueueThread_;
-  boost::thread pathCallbackQueueThread_;
 
   /// \brief Topic names for velocity and path commands.
   std::string vel_topic_;

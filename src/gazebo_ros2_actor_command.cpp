@@ -14,21 +14,13 @@ using namespace gazebo;
 #define WALKING_ANIMATION "walking"
 
 /////////////////////////////////////////////////
-GazeboRosActorCommand::GazeboRosActorCommand() {
+GazeboRosActorCommand::GazeboRosActorCommand()
+{
+  gzmsg << "GazeboRosActorCommand initializing\n";
 }
 
-GazeboRosActorCommand::~GazeboRosActorCommand() {
-  this->vel_queue_.clear();
-  this->vel_queue_.disable();
-  this->velCallbackQueueThread_.join();
-
-  // Added for path
-  this->path_queue_.clear();
-  this->path_queue_.disable();
-  this->pathCallbackQueueThread_.join();
-
-  this->ros_node_->shutdown();
-  delete this->ros_node_;
+GazeboRosActorCommand::~GazeboRosActorCommand()
+{
 }
 
 /////////////////////////////////////////////////
@@ -93,10 +85,6 @@ void GazeboRosActorCommand::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   this->vel_sub_ = this->ros_node_->create_subscription<geometry_msgs::msg::Twist>(
     vel_topic_, rclcpp::QoS(10),
     std::bind(&GazeboRosActorCommand::VelCallback, this, std::placeholders::_1));
-
-  // Create a thread for the velocity callback queue
-  this->velCallbackQueueThread_ =
-      boost::thread(boost::bind(&GazeboRosActorCommand::VelQueueThread, this));
 
   // Subscribe to the path commands
   this->path_sub_ = this->ros_node_->create_subscription<nav_msgs::msg::Path>(
@@ -253,20 +241,6 @@ void GazeboRosActorCommand::ChooseNewTarget() {
 
   // Set next target
   this->target_pose_ = this->target_poses_.at(this->idx_);
-}
-
-void GazeboRosActorCommand::VelQueueThread() {
-  static const double timeout = 0.01;
-
-  while (this->ros_node_->ok())
-    this->vel_queue_.callAvailable(ros::WallDuration(timeout));
-}
-
-void GazeboRosActorCommand::PathQueueThread() {
-  static const double timeout = 0.01;
-
-  while (this->ros_node_->ok())
-    this->path_queue_.callAvailable(ros::WallDuration(timeout));
 }
 
 GZ_REGISTER_MODEL_PLUGIN(GazeboRosActorCommand)
