@@ -91,7 +91,7 @@ void GazeboRosActorCommand::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 
   // Subscribe to the velocity commands
   this->vel_sub_ = this->ros_node_->create_subscription<geometry_msgs::msg::Twist>(
-    "cmd_vel", rclcpp::QoS(10),
+    vel_topic_, rclcpp::QoS(10),
     std::bind(&GazeboRosActorCommand::VelCallback, this, std::placeholders::_1));
 
   // Create a thread for the velocity callback queue
