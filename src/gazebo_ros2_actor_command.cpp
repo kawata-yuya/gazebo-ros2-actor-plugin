@@ -99,18 +99,9 @@ void GazeboRosActorCommand::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
       boost::thread(boost::bind(&GazeboRosActorCommand::VelQueueThread, this));
 
   // Subscribe to the path commands
-  ros::SubscribeOptions path_so =
-    ros::SubscribeOptions::create<nav_msgs::Path>(
-        path_topic_,
-        1,
-        boost::bind(&GazeboRosActorCommand::PathCallback, this, _1),
-        ros::VoidPtr(),
-        &path_queue_);
-  this->path_sub_ = ros_node_->subscribe(path_so);
-
-  // Create a thread for the path callback queue
-  this->pathCallbackQueueThread_ =
-      boost::thread(boost::bind(&GazeboRosActorCommand::PathQueueThread, this));
+  this->path_sub_ = this->ros_node_->create_subscription<nav_msgs::msg::Path>(
+    path_topic_, rclcpp::QoS(10),
+    std::bind(&GazeboRosActorCommand::PathCallback, this, std::placeholders::_1));
 
   // Connect the OnUpdate function to the WorldUpdateBegin event.
   this->connections_.push_back(event::Events::ConnectWorldUpdateBegin(

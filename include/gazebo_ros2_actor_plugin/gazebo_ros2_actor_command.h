@@ -61,7 +61,7 @@ class GazeboRosActorCommand : public ModelPlugin {
 
   /// \brief Subscribers for velocity and path commands.
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr vel_sub_;
-  ros::Subscriber path_sub_;
+  rclcpp::Subscription<nav_msgs::msg::Path>::SharedPtr path_sub_;
 
   /// \brief Custom callback queues for velocity and path commands.
   ros::CallbackQueue vel_queue_;
