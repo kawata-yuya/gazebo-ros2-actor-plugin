@@ -86,18 +86,13 @@ void GazeboRosActorCommand::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
   this->actor_ = boost::dynamic_pointer_cast<physics::Actor>(_model);
   this->world_ = this->actor_->GetWorld();
   this->Reset();
-  // Create ROS node handle
-  this->ros_node_ = new ros::NodeHandle();
+  // Create ROS2 node handle
+  this->ros_node_ = gazebo_ros::Node::Get(this->sdf_);
 
   // Subscribe to the velocity commands
-  ros::SubscribeOptions vel_so =
-    ros::SubscribeOptions::create<geometry_msgs::Twist>(
-      vel_topic_,
-      1,
-      boost::bind(&GazeboRosActorCommand::VelCallback, this, _1),
-      ros::VoidPtr(),
-      &vel_queue_);
-  this->vel_sub_ = ros_node_->subscribe(vel_so);
+  this->vel_sub_ = this->ros_node_->create_subscription<geometry_msgs::msg::Twist>(
+    "cmd_vel", rclcpp::QoS(10),
+    std::bind(&GazeboRosActorCommand::VelCallback, this, std::placeholders::_1));
 
   // Create a thread for the velocity callback queue
   this->velCallbackQueueThread_ =

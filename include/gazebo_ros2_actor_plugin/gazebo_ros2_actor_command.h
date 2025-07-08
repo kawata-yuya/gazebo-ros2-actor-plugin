@@ -1,8 +1,9 @@
 #ifndef GAZEBO_ROS_ACTOR_PLUGIN_INCLUDE_GAZEBO_ROS_ACTOR_COMMAND
 #define GAZEBO_ROS_ACTOR_PLUGIN_INCLUDE_GAZEBO_ROS_ACTOR_COMMAND
 
-#include <ros/ros.h>
-#include <ros/callback_queue.h>
+// #include <ros/ros.h>
+// #include <ros/callback_queue.h>
+#include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <nav_msgs/msg/path.hpp>
 
@@ -13,6 +14,7 @@
 #include "gazebo/common/Plugin.hh"
 #include "gazebo/physics/physics.hh"
 #include "gazebo/util/system.hh"
+#include <gazebo_ros/node.hpp>
 
 namespace gazebo {
 
@@ -55,10 +57,10 @@ class GazeboRosActorCommand : public ModelPlugin {
   void PathQueueThread();
 
   /// \brief ROS node handle.
-  ros::NodeHandle *ros_node_;
+  rclcpp::Node::SharedPtr ros_node_;
 
   /// \brief Subscribers for velocity and path commands.
-  ros::Subscriber vel_sub_;
+  rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr vel_sub_;
   ros::Subscriber path_sub_;
 
   /// \brief Custom callback queues for velocity and path commands.
