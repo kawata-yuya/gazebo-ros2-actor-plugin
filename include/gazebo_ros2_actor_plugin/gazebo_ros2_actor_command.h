@@ -11,9 +11,10 @@
 #include <queue>
 #include <vector>
 
-#include "gazebo/common/Plugin.hh"
-#include "gazebo/physics/physics.hh"
-#include "gazebo/util/system.hh"
+#include <gazebo/common/Plugin.hh>
+#include <gazebo/physics/physics.hh>
+#include <gazebo/util/system.hh>
+
 #include <gazebo_ros/node.hpp>
 
 namespace gazebo {
