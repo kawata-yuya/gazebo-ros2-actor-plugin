@@ -6,7 +6,7 @@ Gazebo ROS2 plugin to move actors using velocity or path messages
 This package contains a plugin for Gazebo Classic (Gazebo 11) and ROS2.
 It enables control of **actors** using ROS2 topic communication (`cmd_vel` or `cmd_path`).
 
-<!-- insert demo video -->
+![demo video](./media/demo_video.webp)
 
 ## Environment
 - Ubuntu 22.04
@@ -44,7 +44,7 @@ Type this command in other terminal to launch teleop_twisp
 $ ros2 run teleop_twist_keyboard teleop_twist_keyboard 
 ```
 
-<!-- TODO: add node map -->
+![](./media/demo_nodemap.webp)
 
 ## Details
 ### Actor settings
