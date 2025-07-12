@@ -38,7 +38,7 @@ $ ros2 launch gazebo_ros2_actor_plugin demo_world.launch.py
 
 ### 2. Publish `cmd_vel` using keyboard
 
-Type this command in other terminal to launch teleop_twisp
+Type this command in another terminal to run teleop_twist_keyboard.
 
 ```shell
 $ ros2 run teleop_twist_keyboard teleop_twist_keyboard 
